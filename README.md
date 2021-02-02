@@ -1,1 +1,1 @@
-# An example of a multitiered working template.
+# A multitiered study outline.
