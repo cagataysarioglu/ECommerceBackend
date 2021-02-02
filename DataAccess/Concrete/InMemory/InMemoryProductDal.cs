@@ -41,7 +41,9 @@ namespace DataAccess.Concrete.InMemory
             //}
             //_products.Remove(productToDelete);
 
+            //LINQ
             productToDelete = _products.SingleOrDefault(p => product.ProductId == p.ProductId);
+
             _products.Remove(productToDelete);
         }
 
@@ -57,7 +59,9 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Product product)
         {
+            //LINQ
             Product productToUpdate = _products.SingleOrDefault(p => product.ProductId == p.ProductId);
+
             productToUpdate.ProductName = product.ProductName;
             productToUpdate.CategoryId = product.CategoryId;
             productToUpdate.UnitPrice = product.UnitPrice;
