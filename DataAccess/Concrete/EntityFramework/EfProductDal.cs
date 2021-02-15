@@ -11,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>, IProductDal
+    public class EfProductDal : EfEntityRepositoryBase<Product, DatabaseContext>, IProductDal
     {
         public List<ProductDetailDto> GetProductDetails()
         {
-            using (NorthwindContext context = new NorthwindContext())
+            using (DatabaseContext context = new DatabaseContext())
             {
                 var result = from p in context.Products
                     join c in context.Categories on p.CategoryId equals c.CategoryId
