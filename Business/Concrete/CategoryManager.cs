@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -15,14 +19,36 @@ namespace Business.Concrete
         {
             _categoryDal = categoryDal;
         }
-        public List<Category> GetAll()
+
+        [ValidationAspect(typeof(CategoryValidator))]
+        public IResult Add(Category category)
         {
-            return _categoryDal.GetAll();
+            _categoryDal.Add(category);
+            return new SuccessResult(Messages.Added);
         }
 
-        public Category GetById(int categoryId)
+        [ValidationAspect(typeof(CategoryValidator))]
+        public IResult Delete(Category category)
         {
-            return _categoryDal.Get(c => c.CategoryId == categoryId);
+            _categoryDal.Delete(category);
+            return new SuccessResult(Messages.Deleted);
+        }
+
+        [ValidationAspect(typeof(CategoryValidator))]
+        public IResult Update(Category category)
+        {
+            _categoryDal.Update(category);
+            return new SuccessResult(Messages.Updated);
+        }
+
+        public IDataResult<List<Category>> GetAll()
+        {
+            return new DataResult<List<Category>>(_categoryDal.GetAll(), true, Messages.Listed);
+        }
+
+        public IDataResult<Category> GetById(int categoryId)
+        {
+            return new SuccessDataResult<Category>(_categoryDal.Get(c => c.CategoryId == categoryId));
         }
     }
 }
