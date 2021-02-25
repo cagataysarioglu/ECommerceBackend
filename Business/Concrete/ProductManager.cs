@@ -31,7 +31,7 @@ namespace Business.Concrete
         {
             IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName),
                 CheckIfProductCountOfCategoryCorrect(product.CategoryId),
-                CheckIfCategoryCountBoundExceeded());
+                CheckIfCategoryCountBoundExceeded(), CheckIfProductAmountInsufficient(product.UnitsInStock));
             if (result != null)
             {
                 return result;
@@ -85,7 +85,7 @@ namespace Business.Concrete
         {
             IResult result = BusinessRules.Run(CheckIfProductNameExists(product.ProductName),
                 CheckIfProductCountOfCategoryCorrect(product.CategoryId),
-                CheckIfCategoryCountBoundExceeded());
+                CheckIfCategoryCountBoundExceeded(), CheckIfProductAmountInsufficient(product.UnitsInStock));
             if (result != null)
             {
                 return result;
@@ -120,6 +120,16 @@ namespace Business.Concrete
             if (result.Data.Count > 15)
             {
                 return new ErrorResult(Messages.CategoryCountBoundExceeded);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfProductAmountInsufficient(int productAmount)
+        {
+            var result = _productDal.GetAll(p => p.UnitsInStock == productAmount).Where(p => p.UnitsInStock < 10);
+            if (result.Count() != 0)
+            {
+                return new ErrorResult(Messages.ProductAmountIsInsufficient);
             }
             return new SuccessResult();
         }
