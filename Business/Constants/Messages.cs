@@ -17,6 +17,6 @@ namespace Business.Constants
         public static string ProductNameAlreadyExists = "Product name already exists.";
         public static string CategoryCountBoundExceeded = "Category count bound exceeded.";
         public static string ProductAmountIsInsufficient = "Stock amount of product is insufficient.";
-        public static SerializationInfo AuthorizationDenied;
+        public static string AuthorizationDenied = "Authorization denied.";
     }
 }
