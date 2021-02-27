@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
@@ -18,5 +19,11 @@ namespace Business.Constants
         public static string CategoryCountBoundExceeded = "Category count bound exceeded.";
         public static string ProductAmountIsInsufficient = "Stock amount of product is insufficient.";
         public static string AuthorizationDenied = "Authorization denied.";
+        internal static string UserRegistered;
+        internal static User UserNotFound;
+        internal static string AccessTokenCreated;
+        internal static string UserAlreadyExists;
+        internal static User PasswordError;
+        internal static string SuccessfulLogin;
     }
 }
